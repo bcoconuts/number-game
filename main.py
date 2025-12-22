@@ -1,9 +1,8 @@
 import random
 
 def get_game_size():
-    game_size = int(input("How big a boy are ya... Pick a number (10-100): "))
-    
-    return game_size
+    int(input("How big a boy are ya... Pick a number (10-100): "))
+    return
 
 
 def guessing_game(game_size):
@@ -35,6 +34,6 @@ def results(attempts):
         print(f"""Even a blind squirrel finds an acorn now and again....
         Congrats on guessing {random_number} {attempts} tries...""")        
     
-get_game_size()    
-guessing_game(game_size)
+game_size = get_game_size()    
+attempts = guessing_game(game_size)
 results(attempts)
