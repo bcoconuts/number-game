@@ -2,6 +2,8 @@ import random
 
 def get_game_size():
     game_size = int(input("How big a boy are ya... Pick a number (10-100): "))
+    
+    return game_size
 
 
 def guessing_game(game_size):
@@ -18,6 +20,8 @@ def guessing_game(game_size):
         
         attempts += 1    
         guess = int(input("Guess Again: "))
+        
+        return attempts
         
 
 def results(attempts):       
