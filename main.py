@@ -1,10 +1,9 @@
 '''Themed number-guessing game'''
 
+import random
+
 MIN_GAME_SIZE = 10
 MAX_GAME_SIZE = 100
-
-
-import random
 
 
 def get_game_settings():
@@ -54,11 +53,11 @@ def play_guessing_game(game_size):
                 if guess == random_number:
                     break
                 elif not (1 <= guess <= game_size):
-                    print("Sawbones! Come checck this guy's brain...\n")
+                    print("Sawbones! Come check this guy's brain...\n")
                 elif guess < random_number:
-                    print(f"Yeah, you wish it was {guess}. Try something higher!\n")
+                    print(f"{guess}!? That guess was lower than you, Little man!\n")
                 else:
-                    print(f"Yeha, you wish it was {guess}. Try something lower!\n")
+                    print(f'''{guess}? When they said "Hang em' High", they werent talking about your guesses.\n''')
                 
                 attempts += 1 
                 
@@ -107,13 +106,49 @@ def display_results(game_size, random_number, attempts, difficulty):
             f"Congrats on guessing {random_number} in... *looks at notes* {attempts} tries..."
         )        
     
+def prompt_play_again():
+    '''Determine if player wants to play again, and add to game tally''' 
+    while True:
+        try:
+            while True:
+                run_game = int(input("Think you got what it takes to try your hand again?\n(0 to Quit, 1 to Play): "))
+                if run_game == 0:
+                    break
+                elif run_game == 1:
+                    print("\n I'll be your Huckleberry.\n")
+                    break
+                else:
+                    print("I'm gonna say it again. Slower for you this time.\n")
+            break
+        except ValueError:
+            print("I'm gonna say it again. Slower for you this time.\n")
+    
+    return run_game
+    
+
+def display_game_stats(total_attempts):
+    '''Calculate and display game statistics'''
+    average = round(sum(total_attempts) / len(total_attempts), 2)
+    if len(total_attempts) == 1:
+        print("Here's the part where I'd give you how you did... But all ya did was play once")
+    else:
+        print(
+            f"Well cowboy, over {len(total_attempts)} games,\n"
+            f"looks like it took you an average of {average} guesses."
+        )    
     
 def main():
     """Run the game"""
-    game_size, difficulty = get_game_settings()
-    random_number, attempts = play_guessing_game(game_size)
-    display_results(game_size, random_number, attempts, difficulty)
-    
+    run_game = 1
+    total_attempts = []
+    while run_game == 1:
+        game_size, difficulty = get_game_settings()
+        random_number, attempts = play_guessing_game(game_size)
+        total_attempts.append(attempts)
+        display_results(game_size, random_number, attempts, difficulty)
+        run_game = prompt_play_again()
+    display_game_stats(total_attempts)
+        
     
 if __name__ == "__main__":
     main()
